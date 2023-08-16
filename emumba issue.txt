@@ -1,0 +1,15 @@
+-- input field on Sign in page
+-- how i can open modal on singin page 
+
+-- change password modal css issue
+
+-- how i can add pix man on Dashboard page
+-- user dashboard page on button "Watch Previous Record" modal css issue
+
+-- on overall page table is not in center why
+-- on overall page how i can open setting page
+
+-- on setting page the Edit info modal input setting
+
+--search logic
+--Edit 

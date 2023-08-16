@@ -1,0 +1,33 @@
+.container {
+    text-align: center;
+}
+
+.centered {
+    display: flex;
+    transform: translate(50%, 150%);
+
+}
+
+.centered h5 {
+    color: black;
+    padding: 0px 30px;
+
+}
+
+table {
+    display: flex;
+    justify-content: center;
+    transform: translate(10px, -35px);
+    background: white;
+    width: 40%;
+    margin-left: 30%;
+}
+
+table th {
+    border-right: 1px solid #bfbaba;
+    padding: 15px;
+}
+
+table input {
+    border: none;
+}
