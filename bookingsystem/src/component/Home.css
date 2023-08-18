@@ -31,3 +31,11 @@ table th {
 table input {
     border: none;
 }
+
+.lable {
+    border: 1px solid #bdb4b4;
+    padding: 10px;
+    color: grey;
+    border-radius: 10px;
+    margin-left: 2%;
+}
