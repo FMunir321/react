@@ -1,169 +1,92 @@
-import { useEffect, useRef, useState } from 'react'
-import { DateRange } from 'react-date-range'
-
-import format from 'date-fns/format'
-import { addDays } from 'date-fns'
-
-import 'react-date-range/dist/styles.css'
-import 'react-date-range/dist/theme/default.css'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 const Test = () => {
-
-    // date state
-    const [range, setRange] = useState([
-        {
-            startDate: new Date(),
-            endDate: addDays(new Date(), 3),
-            key: 'selection'
-        }
-    ])
-
-    // open close
-    const [open, setOpen] = useState(false)
-
-    // get the target element to toggle 
-    const refOne = useRef(null)
+    const [countryState, setCountryState] = useState({
+        loading: false,
+        countries: [],
+        errorMessage: "",
+    });
 
     useEffect(() => {
-        document.addEventListener("keydown", hideOnEscape, true)
-        document.addEventListener("click", hideOnClickOutside, true)
-    }, [])
+        const fetchData = async () => {
+            try {
+                // fetch spinner
+                setCountryState({
+                    ...countryState,
+                    loading: true,
+                });
 
-    const hideOnEscape = (e) => {
-        // console.log(e.key)
-        if (e.key === "Escape") {
-            setOpen(false)
+                //  fetch data
+                const dataUrl = `https://restcountries.com/v3.1/all`;
+                const response = await axios.get(dataUrl);
+                setCountryState({
+                    ...countryState,
+                    countries: response.data,
+                    loading: false,
+                });
+            } catch (error) {
+                setCountryState({
+                    ...countryState,
+                    loading: false,
+                    errorMessage: "Sorry Something went wrong",
+                });
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const { loading, errorMessage, countries } = countryState;
+    console.log(countries);
+    const [selectedCountry, setSelectedCountry] = useState();
+
+    //   find selected country data
+    //search selected country
+    const searchSelectedCountry = countries.find((obj) => {
+        if (obj.name.common === selectedCountry) {
+            return true;
         }
-    }
-
-    const hideOnClickOutside = (e) => {
-        // console.log(refOne.current)
-        // console.log(e.target)
-        if (refOne.current && !refOne.current.contains(e.target)) {
-            setOpen(false)
-            console.log(range)
-        }
-    }
-
-    function handleset(e) {
-        console.log(e.startDate)
-        setRange({
-            startDate: (format(e.startDate)),
-        })
-        console.log(range)
-    }
+        return false;
+    });
 
     return (
-        <div className="calendarWrap">
+        <React.Fragment>
+            <section>
 
-            <input
-                value={`${format(range[0].startDate, "MM/dd/yyyy")} to ${format(range[0].endDate, "MM/dd/yyyy")}`}
-                readOnly
-                className="inputBox"
-                onClick={() => setOpen(open => !open)}
-            />
-
-            <div ref={refOne}>
-                {open &&
-                    <DateRange
-                        //onChange={item => handleset(item.selection)}
-                        onChange={item => setRange([item.selection])}
-                        editableDateInputs={true}
-                        moveRangeOnFirstSelection={false}
-                        ranges={range}
-                        months={1}
-                        direction="horizontal"
-                        className="calendarElement"
-                    />
-                }
-            </div>
-
-        </div>
-    )
-}
-
-export default Test
-
-
-
+                <div>
+                    <select
+                        value={selectedCountry}
+                        onChange={(e) => setSelectedCountry(e.target.value)}
+                    >
+                        <option>--Select Country--</option>
+                        {countries.map((item) => {
+                            return (
+                                <option key={uuidv4()} value={item.name.common}>
+                                    {item.name.common}
+                                </option>
+                            );
+                        })}
+                    </select>
+                </div>
+                <div>
+                    {searchSelectedCountry && (
+                        <div>
+                            <p>
+                                {searchSelectedCountry &&
+                                    searchSelectedCountry.idd.root}
+                                {searchSelectedCountry &&
+                                    searchSelectedCountry.idd.suffixes}
+                            </p>
+                        </div>
+                    )}
+                </div>
 
 
+            </section>
+        </React.Fragment>
+    );
+};
 
-
-
-
-
-
-
-
-
-
-// import { useEffect, useRef, useState } from 'react'
-// import { Calendar } from 'react-date-range'
-
-// import 'react-date-range/dist/styles.css'
-// import 'react-date-range/dist/theme/default.css'
-// import { DateRange } from '@mui/icons-material'
-// import format from 'date-fns/format'
-// import { addDays } from 'date-fns'
-
-
-// export default function Test() {
-//     const [calendar, setCalendar] = useState('')
-//     const [open, setOpen] = useState(true);
-//     const refOne = useRef(null)
-//     const [range, setRange] = useState([
-//         {
-//             startDate: new Date(),
-//             endDate: addDays(new Date(), 7),
-//             key: 'selection'
-//         }
-//     ])
-
-//     useEffect(() => {
-//         document.addEventListener('keydown', hideOnEscape, true)
-//         document.addEventListener('click', hideOnclickOutside, true)
-//     }, [])
-//     function hideOnEscape(e) {
-//         console.log(e.key)
-//         if (e.key === 'Escape') {
-//             setOpen(false);
-//         }
-
-//     }
-//     const hideOnclickOutside = (e) => {
-//         if (refOne.current && !refOne.current.contains(e.target)) {
-//             setOpen(false);
-//         }
-//     }
-
-//     const handleSelect = (date) => {
-//         setCalendar(format(date, 'MM/dd/yyyy'))
-//     }
-
-//     return (
-//         <div className='calendarWrap'>
-//             <input
-//                 value={`${format(range[0].startDate, 'MM/dd/yyyy')} to ${format(range[0].endDate, 'MM/dd/yyyy')}`}
-//                 readOnly
-//                 className='inputBox'
-//                 onClick={() => setOpen(true)}
-//             />
-//             <div ref={refOne}>
-//                 {open &&
-//                     <DateRange
-//                         date={new Date()}
-//                         onChange={item => setRange([item.selection])}
-//                         // editeableDateInputs={true}
-//                         // moveRangeOnFirstSelection={false}
-//                         ranges={range}
-//                         months={1}
-//                         direction='horzontal'
-//                         className="calendarElement"
-//                     />
-//                 }
-//             </div>
-//         </div>
-
-//     )
-// }
+export default Test;

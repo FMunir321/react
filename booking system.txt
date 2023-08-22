@@ -1,0 +1,12 @@
+Home page 
+--Css issue on filter
+
+All tour page
+-- Css issue with fillter icon and link
+
+tour detail page 
+
+--days calulation with the help of start and end date
+--check box round shape
+--logic for checkboxes
+

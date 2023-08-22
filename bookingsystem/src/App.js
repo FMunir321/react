@@ -5,7 +5,9 @@ import {
 import './App.css';
 import Home from './component/Home';
 import Alltours from "./component/Alltours";
-// import Test from "./component/Test";
+import TourDetails from "./component/TourDetails";
+import Confirmbooking from "./component/Confirmbooking";
+import Test from "./component/Test";
 
 function App() {
   return (
@@ -19,6 +21,22 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Alltours />
+  },
+  {
+    path: '/home',
+    element: <Home />
+  },
+  {
+    path: '/detail',
+    element: <TourDetails />
+  },
+  {
+    path: '/confirmbooking',
+    element: <Confirmbooking />
+  },
+  {
+    path: '/test',
+    element: <Test />
   }
 ])
 
