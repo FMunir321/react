@@ -10,3 +10,37 @@ tour detail page
 --check box round shape
 --logic for checkboxes
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+In order to fully verify your account, we kindly ask you to provide
+us with a video of yourself holding your ID card close to your face, 
+saying out loud the following: 
+
+‘Today 24 August 2023 I Shamsha Munir 
+confirm that I am the only one who has access to my Nexo account’

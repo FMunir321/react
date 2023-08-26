@@ -1,3 +1,4 @@
+import { ConfirmationNumberRounded, Email } from "@mui/icons-material"
 
 export const tourData = [
     { id: '0', name: 'Miami Tower', city: 'Miami', returnday: '2', departurelocation: 'Saddar Rawalpindi', description: 'Hard Rock Stadium is a multi-purpose stadium located in Miami Fardens, Florida, a city', price: '$50 - $80', duration: '2Day', startDate: '01032023', endDate: '04032023', facilities: '', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOEE-lUXpKb1Ok0r4yLi3f1BoE4yjiXjyBB-O1ROjjnRZgudq1l3T9wqHxkppLi9-k8cI&usqp=CAU' },
@@ -10,11 +11,5 @@ export const tourData = [
 
 export const myTourData = []
 
-export const temproraydata = {
-    id: '0',
-    name: 'Miami Tower',
-    city: 'Miami', returnday: '2', departurelocation: 'Saddar Rawalpindi',
-    description: 'Hard Rock Stadium is a multi-purpose stadium located in Miami Fardens, Florida, a city',
-    price: '$50 - $80', duration: '2Day', startDate: '01032023', endDate: '04032023', facilities: '',
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOEE-lUXpKb1Ok0r4yLi3f1BoE4yjiXjyBB-O1ROjjnRZgudq1l3T9wqHxkppLi9-k8cI&usqp=CAU'
-}
+export const bookedtour = []
+

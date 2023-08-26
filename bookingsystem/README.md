@@ -8,6 +8,7 @@
 6- npm i react-date-range
 7- npm i axios
 8- npm install react-hook-form
+9- npm install sweetalert2
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

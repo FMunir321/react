@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import TopHeader from './Header';
-import { tourData, myTourData, temproraydata } from './data';
+import { tourData, myTourData, bookedtour } from './data';
 import { click } from '@testing-library/user-event/dist/click';
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { ContactSupportOutlined } from '@mui/icons-material';
 
 export default function Confirmbooking() {
     const location = useLocation();
+    const navigate = useNavigate();
     const tourid = location.state;
-    const [currentTour, setCurrentTour] = useState([]);
+    console.log(tourid)
     const [countryState, setCountryState] = useState({
         loading: false,
         countries: [],
@@ -18,37 +20,49 @@ export default function Confirmbooking() {
     });
 
     useEffect(() => {
-        myTourData.push(tourData[tourid]);
-        currentTour.push(tourData[tourid]);
 
-        const fetchData = async () => {
-            try {
-                // fetch spinner
-                setCountryState({
-                    ...countryState,
-                    loading: true,
-                });
+        //fetchData();
 
-                //  fetch data
-                const dataUrl = `https://restcountries.com/v3.1/all`;
-                const response = await axios.get(dataUrl);
-                setCountryState({
-                    ...countryState,
-                    countries: response.data,
-                    loading: false,
-                });
-            } catch (error) {
-                setCountryState({
-                    ...countryState,
-                    loading: false,
-                    errorMessage: "Sorry Something went wrong",
-                });
-            }
-        };
+        findtourData();
 
-        fetchData();
     }, []);
 
+
+    const [bookedtour, setBookedtour] = useState([])
+    function findtourData() {
+        for (var i = 0; i <= tourData.length; i++) {
+            if (tourData[i].id == tourid) {
+                return bookedtour.push(tourData[i]);
+
+
+            }
+        }
+    }
+
+    const fetchData = async () => {
+        try {
+            // fetch spinner
+            setCountryState({
+                ...countryState,
+                loading: true,
+            });
+
+            //  fetch data
+            const dataUrl = `https://restcountries.com/v3.1/all`;
+            const response = await axios.get(dataUrl);
+            setCountryState({
+                ...countryState,
+                countries: response.data,
+                loading: false,
+            });
+        } catch (error) {
+            setCountryState({
+                ...countryState,
+                loading: false,
+                errorMessage: "Sorry Something went wrong",
+            });
+        }
+    };
     const { loading, errorMessage, countries } = countryState;
     const [selectedCountry, setSelectedCountry] = useState();
 
@@ -62,12 +76,13 @@ export default function Confirmbooking() {
         return false;
     }, []);
 
-    function clickHandler() {
-        console.log(register);
-    }
     const { register, handleSubmit } = useForm();
+
     const onSubmit = (data) => {
-        console.log(data);
+        console.log(bookedtour)
+        console.log(myTourData)
+        myTourData.push(data);
+        navigate( "/mytours" );
     }
 
 
@@ -112,13 +127,13 @@ export default function Confirmbooking() {
                                 </div>
                             )}
                         </div>
-                        <input style={{ marginTop: '1%' }} type='number' id='phone' {...register('phone')}/><br />
+                        <input style={{ marginTop: '1%' }} type='number' id='phone' {...register('phone')} /><br />
 
 
                         <div className='adultschildren'>
                             <label>Numbers of Adults</label>
                             <label style={{ marginLeft: "19%" }}>Number of Childrens</label><br />
-                            <input type='text' name='firstname' {...register('numberOfadults')}/>
+                            <input type='text' name='firstname' {...register('numberOfadults')} />
                             <input style={{ marginLeft: "6%" }} type='text' name='firstname' {...register('numberOfchild')} />
                         </div>
 
@@ -136,7 +151,7 @@ export default function Confirmbooking() {
 
 
                 <div style={{ width: '50%' }}>
-                    <img style={{ width: '90%' }} src={temproraydata.image} />
+                    <img style={{ width: '90%' }} src='https://wallpaperaccess.com/full/2272119.jpg' />
                 </div>
             </div>
         </div>

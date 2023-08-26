@@ -13,14 +13,16 @@ export default function TourDetails() {
 
     const location = useLocation();
     const navigate = useNavigate();
-    const { tourid } = location.state
-    console.log(tourid);
+    const tourid = location.state;
+
 
     function ClickHandler(id) {
-        console.log(id);
-        navigate( "/confirmbooking", { state: id} );
 
-        // navigate('/confirmbooking', state: id );
+        navigate("/confirmbooking", { state: id });
+    }
+
+    function handleChange() {
+
     }
     return (
         <div style={{ marginLeft: "1%" }}>
@@ -28,7 +30,7 @@ export default function TourDetails() {
             {
                 tourData.map((item, index) => {
                     if (item.id == tourid)
-                        return <div style={{ margin: "2%" }}>
+                        return <div style={{ margin: "2%" }} key={index}>
                             <div>
                                 <h1>{item.name}</h1>
                             </div>
@@ -57,15 +59,15 @@ export default function TourDetails() {
                                     <h3>Return</h3>
                                     <div>
                                         <div className='setpadding'>
-                                            <input value="One" type="checkbox" checked />
+                                            <input onChange={handleChange} value="One" type="checkbox" checked />
                                             <span> Basic first aid kit </span>
                                         </div>
                                         <div className='setpadding'>
-                                            <input value="One" type="checkbox" checked />
+                                            <input onChange={handleChange} value="One" type="checkbox" checked />
                                             <span> Fuel Expense </span>
                                         </div>
                                         <div className='setpadding'>
-                                            <input value="One" type="checkbox" checked />
+                                            <input onChange={handleChange} value="One" type="checkbox" checked />
                                             <span> Detail Guided Maps </span>
                                         </div>
                                     </div>
@@ -73,15 +75,15 @@ export default function TourDetails() {
 
                                     <div>
                                         <div className='setpadding'>
-                                            <input value="One" type="checkbox" checked />
+                                            <input onChange={handleChange} value="One" type="checkbox" checked />
                                             <span> Comfortable Private Booked </span>
                                         </div>
                                         <div className='setpadding'>
-                                            <input value="One" type="checkbox" checked />
+                                            <input onChange={handleChange} value="One" type="checkbox" checked />
                                             <span> Mess Tent, Kitchen Utensils, and Cook </span>
                                         </div>
                                         <div className='setpadding'>
-                                            <input value="One" type="checkbox" checked />
+                                            <input onChange={handleChange} value="One" type="checkbox" checked />
                                             <span> Waterproof Tents on twin/triple Sharing </span>
                                         </div>
                                     </div>

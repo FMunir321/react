@@ -21,13 +21,13 @@ export default function Alltours() {
             </div>
             <div>
                 {
-                    tourData.map((item) => (
-                        <Link to={'detail'} state={{ tourid: item.id }}>
+                    tourData.map((item, index) => (
+                        <Link to={'detail'} state={item.id} key={index}>
                             <div className='column' >
                                 <img className='imgalltour' src={item.image} alt="No image" />
                                 <div style={{ padding: '0px 0px 0px 10px' }}>
                                     <h2>{item.name}</h2>
-                                    <p>{item.description}</p>
+                                    <p className='textskip'>{item.description}</p>
                                     <div style={{ display: 'flex', marginTop: '-5%' }}>
 
                                         <p><AttachMoneyOutlinedIcon style={{ marginRight: '10px', background: '#ededed', fontSize: '15px' }} /> {item.price}</p>

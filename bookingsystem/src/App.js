@@ -8,6 +8,7 @@ import Alltours from "./component/Alltours";
 import TourDetails from "./component/TourDetails";
 import Confirmbooking from "./component/Confirmbooking";
 import Test from "./component/Test";
+import Mytours from "./component/Mytours";
 
 function App() {
   return (
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: '/confirmbooking',
     element: <Confirmbooking />
+  },
+  {
+    path: '/mytours',
+    element: <Mytours />
   },
   {
     path: '/test',
