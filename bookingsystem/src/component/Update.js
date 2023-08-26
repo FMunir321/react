@@ -1,42 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, Link, useNavigate } from 'react-router-dom';
-import TopHeader from './Header';
-import { tourData, personalData, bookedtour } from './data';
-import { click } from '@testing-library/user-event/dist/click';
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { personalData } from './data';
 import axios from "axios";
+import TopHeader from './Header';
 import { v4 as uuidv4 } from "uuid";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { ContactSupportOutlined } from '@mui/icons-material';
 
-export default function Confirmbooking() {
+export default function Update() {
     const location = useLocation();
-    const navigate = useNavigate();
-    const tourid = location.state;
-    console.log(tourid)
-    const [countryState, setCountryState] = useState({
-        loading: false,
-        countries: [],
-        errorMessage: "",
-    });
+    const userData = location.state;
+
+    const [countryState, setCountryState] = useState({ countries: [], });
+    const [register1, setRegister1] = useState({});
+    // setRegister1(personalData[0]);
 
     useEffect(() => {
-
-        //fetchData();
-
+        fetchData();
         findtourData();
 
     }, []);
 
-
     const [bookedtour, setBookedtour] = useState([])
     function findtourData() {
-        for (var i = 0; i <= tourData.length; i++) {
-            if (tourData[i].id == tourid) {
-                return bookedtour.push(tourData[i]);
 
-
-            }
-        }
     }
 
     const fetchData = async () => {
@@ -63,9 +49,9 @@ export default function Confirmbooking() {
             });
         }
     };
-    const { loading, errorMessage, countries } = countryState;
-    const [selectedCountry, setSelectedCountry] = useState();
+    const { countries } = countryState;
 
+    const [selectedCountry, setSelectedCountry] = useState();
     const searchSelectedCountry = countries.find((obj) => {
         if (obj.name.common === selectedCountry) {
 
@@ -76,26 +62,32 @@ export default function Confirmbooking() {
 
     const { register, handleSubmit } = useForm();
 
+    const onSubmit = () => {
+        personalData.length = 0;
+        console.log(personalData);
+        personalData.push(register1);
+        console.log(personalData);
 
-    const onSubmit = (data) => {
-        personalData.push(data);
-        navigate("/mytours");
     }
 
+    function handleInput(e) {
+        const { name, value } = e.target;
+        setRegister1({ ...register1, [name]: value });
+    }
 
     return (
         <div>
             <div style={{ padding: '3%' }}><TopHeader /></div>
             <div style={{ display: 'flex', width: '94%', padding: '3%' }}>
                 <div style={{ width: '50%' }}>
-                    <h1>Confirm Your Booking</h1>
+                    <h1>Update Your Booking</h1>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <label>Name:</label><br />
-                        <input type='text' id='name' {...register('name')} /><br />
+                        <input type='text' id='name' name='name' defaultValue={personalData[0].name} onChange={handleInput} /><br />
 
                         <label>Email</label><br />
-                        <input type='text' id='email' {...register('email')} /><br />
+                        <input type='text' id='email' name='email' defaultValue={personalData[0].email} onChange={handleInput} /><br />
 
                         <label>Phone</label><br />
 
@@ -124,23 +116,23 @@ export default function Confirmbooking() {
                                 </div>
                             )}
                         </div>
-                        <input style={{ marginTop: '1%' }} type='number' id='phone' {...register('phone')} /><br />
+                        <input style={{ marginTop: '1%' }} type='number' id='phone' name='phone' defaultValue={personalData[0].phone} onChange={handleInput} /><br />
 
 
                         <div className='adultschildren'>
                             <label>Numbers of Adults</label>
                             <label style={{ marginLeft: "19%" }}>Number of Childrens</label><br />
-                            <input type='text' name='firstname' {...register('numberOfadults')} />
-                            <input style={{ marginLeft: "6%" }} type='text' name='firstname' {...register('numberOfchild')} />
+                            <input type='text' name='numberofadult' defaultValue={personalData[0].numberOfadults} onChange={handleInput} />
+                            <input style={{ marginLeft: "6%" }} type='text' name='numberOfchild' defaultValue={personalData[0].numberOfchild} onChange={handleInput} />
                         </div>
 
                         <label>Payment Method</label><br />
-                        <select className='optioncss' {...register('paymentmethod')}>
-                            <option>Select</option>
-                            <option value={'mastercard'}>Master Card</option>
+                        <select className='optioncss' name='paymentmethod' onChange={handleInput}>
+                            <option value={personalData[0].paymentmethod}>{personalData[0].paymentmethod}</option>
                             <option value={'visacard'}>Visa Card</option>
+                            <option value={'mastercard'}>Master Card</option>
                         </select>
-                        <button className='confirmBtn' type='submit'>Confirm</button>
+                        <button className='confirmBtn' type='submit'>Update</button>
                     </form>
 
 
@@ -148,7 +140,7 @@ export default function Confirmbooking() {
 
 
                 <div style={{ width: '50%' }}>
-                    <img style={{ width: '90%' }} src='https://wallpaperaccess.com/full/2272119.jpg' />
+                    <img style={{ width: '90%' }} src={userData.image} />
                 </div>
             </div>
         </div>

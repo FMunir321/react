@@ -9,7 +9,7 @@ export const tourData = [
 
 ]
 
-export const myTourData = []
+export const personalData = []
 
 export const bookedtour = []
 

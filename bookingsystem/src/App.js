@@ -9,6 +9,7 @@ import TourDetails from "./component/TourDetails";
 import Confirmbooking from "./component/Confirmbooking";
 import Test from "./component/Test";
 import Mytours from "./component/Mytours";
+import Update from "./component/Update";
 
 function App() {
   return (
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: '/mytours',
     element: <Mytours />
+  },
+  {
+    path: '/update',
+    element: <Update />
   },
   {
     path: '/test',

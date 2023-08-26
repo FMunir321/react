@@ -4,42 +4,42 @@ import { v4 as uuidv4 } from "uuid";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { tourData } from "./data";
+import { useForm } from "react-hook-form";
 
 function Test() {
-    //const [daysRemaining, setDaysRemaining] = useState(null);
-    // const state = {
-    //     curDT: new Date().toLocaleString(),
-    // }
-    const state = {
-        date: ""
-    };
+    const personalData = [
+        { name: 'Faisal', email: 'abc' }
+    ]
+
+    const [register1, setRegister1] = useState({});
+    // setRegister1(personalData[0]);
     useEffect(() => {
-        // getDate();
-        datedifferent();
     }, []);
 
 
-    function datedifferent() {
-        const currentDate = new Date();
-        const examDate = new Date(tourData[1].startDate);
-        const timeDifference = Math.abs(examDate - currentDate);
-        const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+    function handleInput(e) {
+        // console.log(e.target);
+        const { name, value } = e.target;
+        setRegister1({ ...register1, [name]: value });
+        console.log(register1);
+    }
 
-        console.log(daysRemaining)
 
-        if (daysRemaining <= 3) {
-
-            console.log('not deleted');
-        }
-        else {
-            console.log("deleted")
-        }
+    function updateData() {
+        console.log('click update button');
+        console.log(personalData)
     }
 
     return (
         <div>test page
-            <p>Current Date And Time : {state.date}</p>
-            <p>{tourData[0].startDate}</p>
+            <form>
+                <label>Name:</label><br />
+                <input type='text' id='name' name="name" defaultValue={personalData[0].name} onChange={handleInput} /><br />
+
+                <label>Email</label><br />
+                <input type='text' id='email' name="email" defaultValue={personalData[0].name} onChange={handleInput} /><br />
+                <button className='confirmBtn' onClick={updateData}>Update</button>
+            </form>
         </div>
     );
 };

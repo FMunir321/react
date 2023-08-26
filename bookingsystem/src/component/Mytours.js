@@ -57,12 +57,7 @@ export default function Mytours() {
     }
 
     function detailHandle(id) {
-        console.log(id);
         navigate("/detail", { state: id })
-
-    }
-    function updateHandle(id) {
-        navigate("/test", { state: id })
     }
     return (
         <div className='mytourContainer'>
@@ -85,7 +80,7 @@ export default function Mytours() {
                                     <DeleteForeverOutlinedIcon onClick={() => deleteHandle(item)} style={{ color: '#e9763d' }} />
                                     {/* <button></button> */}
                                     <button className='detailBtn' onClick={() => detailHandle(item.id)}>Details</button>
-                                    <button className='detailBtn' onClick={() => navigate('/detail', { state: item.id })}>Update</button>
+                                    <button className='detailBtn' onClick={() => navigate('/update', { state: item })}>Update</button>
                                 </div>
                             </div>
                         </div>
