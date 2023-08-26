@@ -14,9 +14,29 @@ export default function Mytours() {
     const [Alltour, setAlltour] = useState(tourData);
 
     function deleteHandle(tour) {
+        const currentDate = new Date();
+        const examDate = new Date(tour.startDate);
+        const timeDifference = Math.abs(examDate - currentDate);
+        const daysRemaining = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+        console.log(daysRemaining)
+
+        if (daysRemaining <= 3) {
+            Swal.fire({
+                title: 'Delete Tour',
+                text: "You can't delete'" + tour.name + "' because there are only '" + daysRemaining + "days remining' untill beginning of this tour.",
+                showCancelButton: false,
+            })
+        }
+        else {
+            alertfordelete(tour)
+        }
+    }
+
+    function alertfordelete(tour) {
         Swal.fire({
             title: 'Delete Tour',
-            text: "Are you sure to delete '"+tour.name+"' ?",
+            text: "Are you sure to delete '" + tour.name + "' ?",
             showCancelButton: true,
             cancelButtonText: 'Cancel',
             confirmButtonText: 'Delete',
