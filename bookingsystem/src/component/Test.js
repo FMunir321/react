@@ -8,38 +8,52 @@ import { useForm } from "react-hook-form";
 
 function Test() {
     const personalData = [
-        { name: 'Faisal', email: 'abc' }
+        { firstname: 'Faisal', email: 'abc' }
     ]
+    const [updateState, setUpdateState] = useState([]);
 
-    const [register1, setRegister1] = useState({});
-    // setRegister1(personalData[0]);
-    useEffect(() => {
-    }, []);
-
-
+    function pushData(data) {
+        setUpdateState(personalData[0]);
+    }
     function handleInput(e) {
-        // console.log(e.target);
         const { name, value } = e.target;
-        setRegister1({ ...register1, [name]: value });
-        console.log(register1);
+
+        setUpdateState({
+            ...updateState,
+            [name]: value
+        });
     }
 
+    function savetData() {
+        console.log(updateState)
+    }
 
     function updateData() {
         console.log('click update button');
-        console.log(personalData)
+        console.log(updateState)
     }
 
     return (
         <div>test page
+            {
+                personalData.map((item) => (
+                    <div>
+                        <p>{item.firstname}</p><br />
+                        <p>{item.email}</p>
+                        <button onClick={() => pushData(item)}>Edit</button>
+                    </div>
+                ))
+            }
+
             <form>
                 <label>Name:</label><br />
-                <input type='text' id='name' name="name" defaultValue={personalData[0].name} onChange={handleInput} /><br />
+                <input type='text' id='email' name='firstname' value={updateState.firstname} onChange={handleInput} ></input><br />
 
                 <label>Email</label><br />
-                <input type='text' id='email' name="email" defaultValue={personalData[0].name} onChange={handleInput} /><br />
-                <button className='confirmBtn' onClick={updateData}>Update</button>
+                <input type='text' id='email' name='email' value={updateState.email} onChange={handleInput} ></input><br />
+
             </form>
+            <button onClick={updateData}>Save</button>
         </div>
     );
 };

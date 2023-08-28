@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { personalData } from './data';
 import axios from "axios";
 import TopHeader from './Header';
@@ -8,13 +8,15 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 export default function Update() {
     const location = useLocation();
-    const userData = location.state;
+    const navigate = useNavigate();
+    const selectedTour = location.state;
 
     const [countryState, setCountryState] = useState({ countries: [], });
-    const [register1, setRegister1] = useState({});
-    // setRegister1(personalData[0]);
+    const [updateData, setupdateData] = useState([]);
+
 
     useEffect(() => {
+        setupdateData(personalData[0]);
         fetchData();
         findtourData();
 
@@ -62,17 +64,17 @@ export default function Update() {
 
     const { register, handleSubmit } = useForm();
 
-    const onSubmit = () => {
-        personalData.length = 0;
-        console.log(personalData);
-        personalData.push(register1);
-        console.log(personalData);
-
-    }
-
     function handleInput(e) {
         const { name, value } = e.target;
-        setRegister1({ ...register1, [name]: value });
+        setupdateData({ ...updateData, [name]: value });
+    }
+
+    const onSubmit = () => {
+        personalData.length = 0;
+        personalData.push(updateData);
+        console.log(updateData)
+        navigate("/mytours");
+
     }
 
     return (
@@ -122,7 +124,7 @@ export default function Update() {
                         <div className='adultschildren'>
                             <label>Numbers of Adults</label>
                             <label style={{ marginLeft: "19%" }}>Number of Childrens</label><br />
-                            <input type='text' name='numberofadult' defaultValue={personalData[0].numberOfadults} onChange={handleInput} />
+                            <input type='text' name='numberOfadults' defaultValue={personalData[0].numberOfadults} onChange={handleInput} />
                             <input style={{ marginLeft: "6%" }} type='text' name='numberOfchild' defaultValue={personalData[0].numberOfchild} onChange={handleInput} />
                         </div>
 
@@ -140,7 +142,7 @@ export default function Update() {
 
 
                 <div style={{ width: '50%' }}>
-                    <img style={{ width: '90%' }} src={userData.image} />
+                    <img style={{ width: '90%' }} src={selectedTour.image} />
                 </div>
             </div>
         </div>

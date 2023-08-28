@@ -34,13 +34,30 @@ tour detail page
 
 
 
-
+SMS verification code could not be sent. Please try again later or contact support
 
 
 
 In order to fully verify your account, we kindly ask you to provide
-us with a video of yourself holding your ID card close to your face, 
+us with a of yourself holding your ID card close to your face, 
 saying out loud the following: 
 
-‘Today 24 August 2023 I Shamsha Munir 
-confirm that I am the only one who has access to my Nexo account’
+							‘Today 24 August 2023 I Shamsha Munir 
+							confirm that I am the only one who has access to my Nexo account’		
+
+
+																																																																								
+0xA1Bb9B2E10c0bCf973D3f67b7B30d3C8B0F5cCCB
+
+
+
+
+
+
+
+
+
+
+
+
+
